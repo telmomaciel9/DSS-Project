@@ -46,17 +46,17 @@ public class Piloto implements Serializable
         return this.nome;
     }
 
-    public String getNiveisPericia()
+    public float getNiveisPericia()
     {
         return this.niveis_pericia;
     }
 
-    public int getCts()
+    public float getCts()
     {
         return this.cts;
     }
 
-    public int getSva()
+    public float getSva()
     {
         return this.sva;
     }
