@@ -1,3 +1,4 @@
+package business;
 public class User {
 
     // Variáveis de Instância

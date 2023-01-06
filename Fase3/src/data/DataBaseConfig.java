@@ -1,8 +1,9 @@
 package data;
 
-public class DataBase {
-    static final String USERNAME = "telmomaciel9";                       // Actualizar
-    static final String PASSWORD = "password";                       // Actualizar
+
+public class DataBaseConfig {
+    static final String USERNAME = "root";                       // Actualizar
+    static final String PASSWORD = "root";                       // Actualizar
     private static final String DATABASE = "F1Manager";          // Actualizar
 	private static final String DRIVER = "jdbc:mariadb";        // Usar para MariaDB
 	// private static final String DRIVER = "jdbc:mysql";        // Usar para MySQL

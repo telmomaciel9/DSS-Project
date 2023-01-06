@@ -1,13 +1,7 @@
-/**
- * Write a description of class Piloto here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+package business;
 
-import java.io.Serializable;
 
-public class Piloto implements Serializable
+public class Piloto implements Comparable<Piloto>
 {
     //Variaveis de instancia
     private String nome;
@@ -112,6 +106,11 @@ public class Piloto implements Serializable
                 (this.niveis_pericia == p.getNiveisPericia()) &&
                 (this.cts == p.getCts()) &&
                 (this.sva == p.getSva()));
+    }
+
+    @Override
+    public int compareTo(Piloto o) {
+        return this.nome.compareTo(o.getNome());
     }
 }
 
