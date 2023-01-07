@@ -96,11 +96,5 @@ public class User {
         return sb.toString();
     }
 
-    public static void main(String[] args){
-        User n = new User("ola",true,false,"ola");
-        System.out.print("User" + n.toString()); 
-
-    }
-
 
 }
