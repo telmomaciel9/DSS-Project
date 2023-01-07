@@ -20,14 +20,19 @@ public class CarroDAO implements Map<String, Carro> {
         try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD); 
             Statement stm = conn.createStatement()){
 
-            /*  
             String sql =    "CREATE TABLE IF NOT EXISTS Carros (" +
-                            "Num varchar(10) NOT NULL PRIMARY KEY," +
-                            "Nome varchar(45) DEFAULT NULL," +
-                            "Email varchar(45) DEFAULT NULL," +
-                            "Turma varchar(10), foreign key(Turma) references turmas(Id))";
+                            "Modelo varchar(50) NOT NULL PRIMARY KEY," +
+                            "Marca varchar(50) NOT NULL PRIMARY KEY," +
+                            "PAC decimal(2,1) DEFAULT NULL," +
+                            "potencia varchar(5) DEFAULT NULL," +
+                            "tipoPneu varchar(5) DEFAULT NULL," +
+                            "modoMotor varchar(5) DEFAULT NULL," +
+                            "CONSTAINT CheckTipoPneu CHECK(tipoPneu in ('macio', 'duro', 'chuva')";
+                    
             stm.executeUpdate(sql);
-            */
+            //CONSTRAINT `MarcaModelo` PRIMARY KEY (`marca`, `modelo`),
+                        //CONSTRAINT `MarcaModelo` PRIMARY KEY (`marca`, `modelo`),
+                        //CONSTRAINT `CheckTipo` CHECK(`tipoCarro` IN ('C1', 'C1H', 'C2', 'C2H', 'GT', 'GTH', 'SC')),
         }catch (SQLException e){
             // Erro a criar tabela
             e.printStackTrace();
@@ -76,7 +81,7 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT Num FROM Carros WHERE Num='"+key.toString()+"'"))
+                     stm.executeQuery("SELECT Marca FROM Carros WHERE Marca='"+key.toString()+"'"))
         {
             r = rs.next();
         }
@@ -92,8 +97,9 @@ public class CarroDAO implements Map<String, Carro> {
     public boolean containsValue(Object value)
     {
         Carro Carro = (Carro) value;
-        Carro a = this.get(Carro.getNumero());
-        return Carro.equals(a);
+        Carro a = this.get(Carro.getMarca());
+        Carro b = this.get(Carro.getModelo());
+        return ( Carro.equals(a) && Carro.equals(b) );
     }
 
     @Override
@@ -103,11 +109,16 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT * FROM Carros WHERE Num='"+key+"'") )
+                     stm.executeQuery("SELECT * FROM Carros WHERE Marca='"+key+"'") )
         {
             if (rs.next())
             {
-                Carro = new Carro (rs.getString("Num"), rs.getString("Nome"), rs.getString("Email"));
+                Carro = new Carro (rs.getFloat("PAC"),
+                                    rs.getInt("potencia"),
+                                    rs.getString("Marca"), 
+                                    rs.getString("Modelo"), 
+                                    rs.getString("tipoPneu"),
+                                    rs.getString("modoMotor"));
             }
         }
         catch (SQLException e)
@@ -127,9 +138,12 @@ public class CarroDAO implements Map<String, Carro> {
         {
             stm.executeUpdate(
                             "INSERT INTO Carros "+
-                                        "VALUES ('"+ value.getNumero()+ "', '"+
-                                                     value.getNome()+ "', '"+
-                                                     value.getEmail()+"', NULL) " +
+                                        "VALUES ('"+ value.getPac()+ "', '"+
+                                                     value.getPotencia()+ "', '"+
+                                                     value.getMarca()+ "', '"+
+                                                     value.getModelo()+ "', '"+
+                                                     value.getTipoPneu()+ "', '"+
+                                                     value.getModoMotor()+"', NULL) " +
                                         "ON DUPLICATE KEY UPDATE Nome=Values(Nome), "+
                                                                  "Email=Values(Email)");
         }
@@ -148,7 +162,7 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement())
         {
-            stm.executeUpdate("DELETE FROM Carros WHERE Num='"+key.toString()+"'");
+            stm.executeUpdate("DELETE FROM Carros WHERE Marca='"+key.toString()+"'");
         }
         catch (SQLException e)
         {
@@ -162,7 +176,7 @@ public class CarroDAO implements Map<String, Carro> {
     public void putAll(Map<? extends String, ? extends Carro> m)
     {
         for (Carro a : m.values())
-            this.put(a.getNumero(), a);
+            this.put(a.getModelo(), a);
     }
 
     @Override
@@ -191,12 +205,12 @@ public class CarroDAO implements Map<String, Carro> {
         Collection<Carro> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT Num from Carros"))
+             ResultSet rs = stm.executeQuery("SELECT Marca from Carros"))
         {
             while(rs.next())
             {
-                String NumCarro = rs.getString("Num");
-                Carro a = this.get(NumCarro);
+                String MarcaCarro = rs.getString("Marca");
+                Carro a = this.get(MarcaCarro);
                 res.add(a);
             }
         }
