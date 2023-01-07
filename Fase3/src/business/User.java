@@ -95,6 +95,6 @@ public class User {
         sb.append("\tÉ jogador premium: ");sb.append(this.premium.toString());
         return sb.toString();
     }
-    
+
 
 }
