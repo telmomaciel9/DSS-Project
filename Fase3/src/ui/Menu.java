@@ -70,5 +70,17 @@ public class Menu {
         return this.op;
     }
 
+    public void login(){
+        System.out.println("\n ------------------------------------");
+        System.out.println("               LOGIN             ");
+        System.out.println(" ------------------------------------");
+    }
+    public  void user(){
+        System.out.println(" Introduzir Username: ");
+    }
+
+    public  void pass(){
+        System.out.println(" Introduzir Password: ");
+    }
 
 }
