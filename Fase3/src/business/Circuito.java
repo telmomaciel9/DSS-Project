@@ -1,186 +1,190 @@
 package business;
+/**
+ * Write a description of class Circuito here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
 
 import java.util.Map;
 import java.util.HashMap;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Circuito implements Serializable
 {
-    public enum GDU {possivel, dificil, impossivel};
     /* Variaveis instancia */
     private String nome;
-    private double nr_km;
-    private int nr_curvas;
-    private int nr_chicane;
-    private int nr_retas;
-    private int nr_voltas;
-    private Map<String,GDU> GDUcircuito;
+    private int distancia;
+    private int voltas;
+    //private long tempoMedio;
+    private Map<String,Long> temposMedios;
+    private long tempoDesvio;
+    private long tempoBox;
+    private List<Integer> gdu;
 
+    
     /* Construtores */
     public Circuito()
     {
         this.nome = "";
-        this.nr_km = 0;
-        this.nr_curvas = 0;
-        this.nr_chicane = 0;
-        this.nr_retas = 0;
-        this.nr_voltas = 0;
-        this.GDUcircuito = new HashMap<String, GDU>();
+        this.distancia = 0;
+        this.voltas = 0;
+        this.temposMedios = new HashMap<String, Long>();
+        this.tempoDesvio = 0;
+        this.tempoBox = 0;
+        this.gdu = new ArrayList<Integer>();
     }
-
-    public Circuito(String nome, double km, int curvas, int chicane, int retas, int voltas, Map<String, GDU> g)
+    
+    public Circuito(List<Integer> gdu, String n,int d, int v, Map<String, Long> m, long ds, long b)
     {
-        this.nome = nome;
-        this.nr_km = km;
-        this.nr_curvas = curvas;
-        this.nr_chicane = chicane;
-        this.nr_retas = retas;
-        this.nr_voltas = voltas;
-        HashMap<String,GDU> aux = new HashMap<String, GDU>();
-        if(g == null)
+        this.nome = n;
+        this.distancia = d;
+        this.voltas = v;
+        List<Integer> gdus = new ArrayList<Integer>();
+        for(Integer i : gdu){
+            gdus.add(i);
+        }
+        this.gdu = gdus;
+        HashMap<String,Long> aux = new HashMap<String, Long>();
+        if(m == null)
         {
-            this.GDUcircuito = new HashMap<String, GDU>();
+            this.temposMedios = new HashMap<String, Long>();
         }
         else
         {
-            for(String s : g.keySet())
+            for(String g : m.keySet())
             {
-                aux.put(s, g.get(s));
+                aux.put(g, m.get(g));
             }
         }
-        this.GDUcircuito = aux;
+        this.temposMedios = aux;
+        this.tempoDesvio = ds;
+        this.tempoBox = b;
 
     }
-
+    
     public Circuito(Circuito c)
     {
         this.nome = c.getNome();
-        this.nr_km = c.getNr_km();
-        this.nr_curvas = c.getNr_curvas();
-        this.nr_chicane = c.getNr_chicane();
-        this.nr_retas = c.getNr_retas();
-        this.nr_voltas = c.getNr_voltas();
-        this.GDUcircuito = c.getDGUcircuito();
+        this.distancia = c.getDistancia();
+        this.voltas = c.getVoltas();
+        this.temposMedios = c.getTemposMedios();
+        this.tempoDesvio = c.getTempoDesvio();
+        this.tempoBox = c.getTempoBox();
     }
-
+    
     /* Gets e Sets */
     public String getNome()
     {
         return this.nome;
     }
-
-    public double getNr_km()
+    
+    public int getDistancia()
     {
-        return this.nr_km;
+        return this.distancia;
+    }
+    
+    public int getVoltas()
+    {
+        return this.voltas;
     }
 
-    public int getNr_curvas()
-    {
-        return this.nr_curvas;
-    }
-
-    public int getNr_chicane()
-    {
-        return this.nr_chicane;
-    }
-
-    public int getNr_retas()
-    {
-        return this.nr_retas;
-    }
-
-    public int getNr_voltas()
-    {
-        return this.nr_voltas;
-    }
-
-    public Map<String,GDU> getDGUcircuito()
-    {
-        HashMap<String,GDU> aux = new HashMap<String, GDU>();
-        for(String g : this.GDUcircuito.keySet())
-        {
-            aux.put(g, this.GDUcircuito.get(g));
+    public List<Integer> getGDU(){
+        List<Integer> aux = new ArrayList<Integer>();
+        for (Integer i : this.gdu){
+            aux.add(i);
         }
         return aux;
     }
+    
+    public Map<String,Long> getTemposMedios()
+    {
+        HashMap<String,Long> aux = new HashMap<String, Long>();
+        for(String g : this.temposMedios.keySet())
+        {
+            aux.put(g, this.temposMedios.get(g));
+        }
+        return aux;
+    }
+    
+    public long getTempoDesvio()
+    {
+        return this.tempoDesvio;
+    }
+    
+    public long getTempoBox()
+    {
+        return this.tempoBox;
+    }
+    
 
+    
     public void setNome(String n)
     {
         this.nome = n;
     }
-
-    public void setNr_km(double km)
+    
+    public void setDistancia(int d)
     {
-        this.nr_km = km;
+        this.distancia = d;
     }
-
-    public void setNr_curvas(int curvas)
+    
+    public void setVoltas(int v)
     {
-        this.nr_curvas = curvas;
+        this.voltas = v;
     }
-
-    public void setNr_chicane(int chicane)
+    
+    public void setTempoDesvio(long ds)
     {
-        this.nr_chicane = chicane;
+        this.tempoDesvio = ds;
     }
-
-    public void setNr_retas(int retas)
+    
+    public void setTempoBox(long b)
     {
-        this.nr_retas = retas;
+        this.tempoBox = b;
     }
+    
 
-    public void setNr_voltas(int voltas)
+    public void setTempoMedio(String categoria, long tempo)
     {
-        this.nr_voltas = voltas;
+        this.temposMedios.put(categoria, tempo);
     }
-// MUDAR A categoria E O tempo
-    public void setGDUcircuito(String categoria, GDU tempo)
-    {
-        this.GDUcircuito.put(categoria, tempo);
-    }
-
+    
     /* Metodos usuais */
     public Circuito clone()
     {
         return new Circuito(this);
     }
-
-    public String toString()  //
+    
+    public String toString()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("\nNome: ");sb.append(this.nome);
-        sb.append("\nKilometros: ");sb.append(this.nr_km);
-        sb.append("\nCurvas: ");sb.append(this.nr_curvas);
-        sb.append("\nChicane: ");sb.append(this.nr_chicane);
-        sb.append("\nRetas: ");sb.append(this.nr_retas);
-        sb.append("\nVoltas: ");sb.append(this.nr_voltas);
-        sb.append("{");
-        for (Map.Entry<String, GDU> entry : this.getDGUcircuito().entrySet()) {
-            sb.append(entry.getKey());
-            sb.append("=");
-            sb.append(entry.getValue());
-            sb.append(", ");
-        }
-        sb.append("}");
+        sb.append("\nDistancia: ");sb.append(this.distancia);
+        sb.append("\nNumero de voltas: ");sb.append(this.voltas);
+        //sb.append("\nTempo Medio: ");sb.append(TimeConverter.toTimeFormat(this.tempoMedio));
+        sb.append("\nDesvio Tempo: ");sb.append(TimeConverter.toTimeFormat(this.tempoDesvio));
+        sb.append("\nTempo Box: ");sb.append(TimeConverter.toTimeFormat(this.tempoBox));
         return sb.toString();
     }
-
+    
     public boolean equals(Object o)
     {
-        if(this == o)
-            return true;
-
-        if(o == null || this.getClass() != o.getClass())
-            return false;
-
-        Circuito c = (Circuito) o;
-        return ( this.nome.equals(c.getNome()) &&
-                this.nr_km == (c.getNr_km()) &&
-                this.nr_curvas == (c.getNr_curvas()) &&
-                this.nr_chicane == (c.getNr_chicane()) &&
-                this.nr_retas == (c.getNr_retas()) &&
-                this.nr_voltas == (c.getNr_voltas()) &&
-                this.GDUcircuito.equals(c.getDGUcircuito()));
+       if(this == o)
+        return true;
+       
+       if(o == null || this.getClass() != o.getClass())
+        return false;
+       
+       Circuito c = (Circuito) o;
+       return ( this.nome.equals(c.getNome()) &&
+                this.distancia == c.getDistancia() &&
+                this.voltas == c.getVoltas() &&
+                //this.tempoMedio == c.getTempoMedio() &&
+                this.tempoDesvio == c.getTempoDesvio() &&
+                this.tempoBox == c.getTempoBox());
     }
-
+    
 }
