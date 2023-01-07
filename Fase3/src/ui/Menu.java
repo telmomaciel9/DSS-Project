@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    private static Scanner in = new Scanner(System.in);
-    private List<String> opcoes;
+    private static final Scanner in = new Scanner(System.in);
+    private final List<String> opcoes;
     private int op;
 
     //Construtotor
@@ -28,14 +28,16 @@ public class Menu {
 
     // Método que apresenta o menu com as opções
     private void fazMenu(){
-        System.out.println("\n ------------------------------------");
+        System.out.println("\n--------------------------------------");
         System.out.println("  Sistema de Simulaçao de Corridas ");
-        System.out.println(" ------------------------------------");
+        System.out.println("--------------------------------------");
         for(int i = 0; i<this.opcoes.size(); i++){
-            System.out.println(i+1 + " | " + this.opcoes.get(i));
+            System.out.println("  " + (i+1) + " | " + this.opcoes.get(i));
         }
-        System.out.println("0 | Sair");
-
+        System.out.println("  0 | Sair");
+        System.out.println("--------------------------------------------------------------------");
+        System.out.println("  Atenção! Antes de qualquer operçao precisa de executar o login");
+        System.out.println("--------------------------------------------------------------------");
 
     }
 

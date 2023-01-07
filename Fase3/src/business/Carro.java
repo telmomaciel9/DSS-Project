@@ -7,6 +7,7 @@ public class Carro implements Comparable<Carro> {
     //Variaveis de instancia
     
     private String marca;
+    private int ID;
     private String modelo;
     private int potencia;
     private float pac;
@@ -15,6 +16,7 @@ public class Carro implements Comparable<Carro> {
 
     /* Construtores */
     public Carro() {
+        this.ID = 0;
         this.pac = 0;
         this.potencia = 0;
         this.marca = "";
@@ -23,7 +25,8 @@ public class Carro implements Comparable<Carro> {
         this.modoMotor = "";
     }
 
-    public Carro(float pac, int potencia, String marca, String modelo, String pneu, String motor) {
+    public Carro(int id,float pac, int potencia, String marca, String modelo, String pneu, String motor) {
+        this.ID = id;
         this.pac = pac;
         this.potencia = potencia;
         this.marca = marca;
@@ -33,6 +36,7 @@ public class Carro implements Comparable<Carro> {
     }
 
     public Carro(Carro c) {
+        this.ID = c.getID();
         this.pac = c.getPac();
         this.potencia = c.getPotencia();
         this.marca = c.getMarca();
@@ -42,6 +46,9 @@ public class Carro implements Comparable<Carro> {
     }
 
     /* Gets e sets */
+
+    public int getID(){return this.ID; }
+
     public float getPac() {
         return this.pac;
     }
@@ -54,7 +61,7 @@ public class Carro implements Comparable<Carro> {
         return this.marca;
     }
 
-    public String getModelo() {
+    public Integer getModelo() {
         return this.modelo;
     }
 
@@ -66,6 +73,9 @@ public class Carro implements Comparable<Carro> {
         return this.modoMotor;
     }
 
+    public void setID(int id){
+        this.ID = id;
+    }
     public void setPac(float pac) {
         this.pac = pac;
     }
@@ -93,6 +103,8 @@ public class Carro implements Comparable<Carro> {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("\nID: ");
+        sb.append(this.ID);
         sb.append("\nPac: ");
         sb.append(this.pac);
         sb.append("\nPotencia: ");
@@ -116,7 +128,8 @@ public class Carro implements Comparable<Carro> {
             return false;
 
         Carro c = (Carro) o;
-        return (this.pac == (c.getPac()) &&
+        return (this.ID == (c.getID()) &&
+                this.pac == (c.getPac()) &&
                 this.potencia == (c.getPotencia()) &&
                 this.marca.equals(c.getMarca()) &&
                 this.modelo.equals(c.getModelo()) &&

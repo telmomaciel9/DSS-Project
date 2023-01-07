@@ -1,10 +1,12 @@
 package business;
 
+import data.UserDAO;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class GC {
-    private Map<business.User,Float> classifGlobal;
+    private Map<User,Float> classifGlobal;
 
     public GC(){
         this.classifGlobal = new HashMap<business.User,Float>();

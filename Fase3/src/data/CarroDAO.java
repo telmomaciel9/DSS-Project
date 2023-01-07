@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CarroDAO implements Map<String, Carro> {
+public class CarroDAO implements Map<Integer, Carro> {
 
     private static CarroDAO singleton = null;
 
@@ -21,8 +21,9 @@ public class CarroDAO implements Map<String, Carro> {
             Statement stm = conn.createStatement()){
 
             String sql =    "CREATE TABLE IF NOT EXISTS Carros (" +
-                            "Modelo varchar(50) NOT NULL PRIMARY KEY," +
-                            "Marca varchar(50) NOT NULL PRIMARY KEY," +
+                            "ID int NOT NULL PRIMARY KEY"+
+                            "Modelo varchar(50) NOT NULL ," +
+                            "Marca varchar(50) NOT NULL ," +
                             "PAC decimal(2,1) DEFAULT NULL," +
                             "potencia varchar(5) DEFAULT NULL," +
                             "tipoPneu varchar(5) DEFAULT NULL," +
@@ -81,7 +82,7 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT Marca FROM Carros WHERE Marca='"+key.toString()+"'"))
+                     stm.executeQuery("SELECT ID FROM Carros WHERE Marca='"+key.toString()+"'"))
         {
             r = rs.next();
         }
@@ -109,11 +110,12 @@ public class CarroDAO implements Map<String, Carro> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT * FROM Carros WHERE Marca='"+key+"'") )
+                     stm.executeQuery("SELECT * FROM Carros WHERE ID='"+key+"'") )
         {
             if (rs.next())
             {
-                Carro = new Carro (rs.getFloat("PAC"),
+                Carro = new Carro ( rs.getInt("ID"),
+                                    rs.getFloat("PAC"),
                                     rs.getInt("potencia"),
                                     rs.getString("Marca"), 
                                     rs.getString("Modelo"), 
@@ -130,7 +132,7 @@ public class CarroDAO implements Map<String, Carro> {
     }
 
     @Override
-    public Carro put(String key, Carro value)
+    public Carro put(Integer key, Carro value)
     {
         Carro oldVal = this.get(key);
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
@@ -138,7 +140,8 @@ public class CarroDAO implements Map<String, Carro> {
         {
             stm.executeUpdate(
                             "INSERT INTO Carros "+
-                                        "VALUES ('"+ value.getPac()+ "', '"+
+                                        "VALUES ('"+ value.getID()+ ", "+
+                                                     value.getPac()+ "', '"+
                                                      value.getPotencia()+ "', '"+
                                                      value.getMarca()+ "', '"+
                                                      value.getModelo()+ "', '"+
@@ -173,7 +176,7 @@ public class CarroDAO implements Map<String, Carro> {
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends Carro> m)
+    public void putAll(Map<? extends Integer, ? extends Carro> m)
     {
         for (Carro a : m.values())
             this.put(a.getModelo(), a);
@@ -195,8 +198,19 @@ public class CarroDAO implements Map<String, Carro> {
     }
 
     @Override
-    public Set<String> keySet() {
-        return null;
+    public Set<Integer> keySet() {
+        Set<Integer> r = new HashSet<>();
+        try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT ID from Carros")){
+            while(rs.next()){
+                int c = rs.getInt("ID");
+
+            }
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return r;
     }
 
     @Override
@@ -205,12 +219,12 @@ public class CarroDAO implements Map<String, Carro> {
         Collection<Carro> res = new HashSet<>();
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT Marca from Carros"))
+             ResultSet rs = stm.executeQuery("SELECT ID from Carros"))
         {
             while(rs.next())
             {
-                String MarcaCarro = rs.getString("Marca");
-                Carro a = this.get(MarcaCarro);
+                String IDCArro = rs.getString("ID");
+                Carro a = this.get(IDCArro);
                 res.add(a);
             }
         }
@@ -223,8 +237,8 @@ public class CarroDAO implements Map<String, Carro> {
     }
 
     @Override
-    public Set<Entry<String, Carro>> entrySet() {
-        return null;
+    public Set<Entry<Integer, Carro>> entrySet() {
+        throw  new NullPointerException("Não implementado");
     }
 
 }

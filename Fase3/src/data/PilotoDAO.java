@@ -182,7 +182,19 @@ public class PilotoDAO implements Map<String, Piloto>{
 
     @Override
     public Set<String> keySet() {
-        return null;
+        Set<String> r = new HashSet<>();
+        try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT Nome from Pilotos")) {
+
+            while (rs.next()){
+                String p = rs.getString("Nome");
+                r.add(p);
+            }
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return r;
     }
 
     @Override
@@ -210,7 +222,8 @@ public class PilotoDAO implements Map<String, Piloto>{
 
     @Override
     public Set<Entry<String, Piloto>> entrySet() {
-        return null;
+        throw  new NullPointerException("Não implementado");
     }
-    
+
+
 }
