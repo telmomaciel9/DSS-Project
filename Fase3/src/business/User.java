@@ -95,12 +95,6 @@ public class User {
         sb.append("\tÉ jogador premium: ");sb.append(this.premium.toString());
         return sb.toString();
     }
-
-    public static void main(String[] args){
-        User n = new User("ola",true,false,"ola");
-        System.out.print("User" + n.toString()); 
-
-    }
-
+    
 
 }
