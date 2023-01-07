@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestCampeonato {
-    private Map<User,Float> classifGlobal;
+    private Map<business.User,Float> classifGlobal;
 
     public GestCampeonato(){
-        this.classifGlobal = new HashMap<User,Float>();
+        this.classifGlobal = new HashMap<business.User,Float>();
     }
-    public GestCampeonato(Map<User,Float> cG){
+    public GestCampeonato(Map<business.User,Float> cG){
         this.classifGlobal = cG;
     }
 
@@ -17,11 +17,11 @@ public class GestCampeonato {
         this.classifGlobal = gC.getClassifGlobal();
     }
 
-    public Map<User,Float> getClassifGlobal(){
+    public Map<business.User,Float> getClassifGlobal(){
         return this.classifGlobal;
     }
 
-    public void setClassifGlobal(Map<User,Float> cg){
+    public void setClassifGlobal(Map<business.User,Float> cg){
         this.classifGlobal = cg;
     }
 
