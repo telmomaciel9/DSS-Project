@@ -21,10 +21,10 @@ public class PilotoDAO implements Map<String, Piloto>{
             Statement stm = conn.createStatement()){
 
             String sql =    "CREATE TABLE IF NOT EXISTS Pilotos (" +
-                            "Nome varchar(10) NOT NULL PRIMARY KEY," +
+                            "Nome varchar(100) NOT NULL PRIMARY KEY," +
                             "Niveis_pericia varchar(45) DEFAULT NULL," +
-                            "Cts varchar(45) DEFAULT NULL," +
-                            "Sva varchar(10) DEFAULT NULL";
+                            "CTS decimal(2,1) DEFAULT NULL," +
+                            "SVA decimal(2,1) DEFAULT NULL";
             stm.executeUpdate(sql);
 
         }catch (SQLException e){

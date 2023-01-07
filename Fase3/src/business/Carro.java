@@ -2,10 +2,11 @@ package business;
 
 public class Carro implements Comparable<Carro> {
     //Variaveis de instancia
-    private float pac;
-    private int potencia;
+    
     private String marca;
     private String modelo;
+    private int potencia;
+    private float pac;
     private String tipoPneu;
     private String modoMotor;
 
