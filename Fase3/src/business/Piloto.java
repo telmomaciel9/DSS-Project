@@ -1,116 +1,118 @@
-package business;
 
+/**
+ * Write a description of class Piloto here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
 
-public class Piloto implements Comparable<Piloto>
+import java.io.Serializable;
+
+public class Piloto implements Serializable
 {
     //Variaveis de instancia
     private String nome;
-    private float niveis_pericia;
-    private float cts;
-    private float sva;
-
+    private String nacionalidade;
+    private int qualidade;
+    private int qualidade_chuva;
+    
     //Construtores
     public Piloto()
     {
         this.nome = "";
-        this.niveis_pericia = 0;
-        this.cts = 0;
-        this.sva = 0;
+        this.nacionalidade = "";
+        this.qualidade = 0;
+        this.qualidade_chuva = 0;
     }
-
-    public Piloto(String nome, float niveis_pericia, float cts, float sva)
+    
+    public Piloto(String nome, String nacionalidade, int qual, int qual_chuva)
     {
         this.nome = nome;
-        this.niveis_pericia = niveis_pericia;
-        this.cts = cts;
-        this.sva = sva;
+        this.nacionalidade = nacionalidade;
+        this.qualidade = qual;
+        this.qualidade_chuva = qual_chuva;
     }
-
+    
     public Piloto(Piloto p)
     {
         this.nome = p.getNome();
-        this.niveis_pericia = p.getNiveisPericia();
-        this.cts = p.getCts();
-        this.sva = p.getSva();
+        this.nacionalidade = p.getNacionalidade();
+        this.qualidade = p.getQualidade();
+        this.qualidade_chuva = p.getQualidadeChuva();
     }
-
+    
     //Gets e Sets
     public String getNome()
     {
         return this.nome;
     }
-
-    public float getNiveisPericia()
+    
+    public String getNacionalidade()
     {
-        return this.niveis_pericia;
+        return this.nacionalidade;
     }
-
-    public float getCts()
+    
+    public int getQualidade()
     {
-        return this.cts;
+        return this.qualidade;
     }
-
-    public float getSva()
+    
+    public int getQualidadeChuva()
     {
-        return this.sva;
+        return this.qualidade_chuva;
     }
+    
 
     public void setNome(String nome)
     {
         this.nome = nome;
     }
-
-    public void setNiveis_pericia(float niveis_pericia)
+    
+    public void setNacionalidade(String nacionalidade)
     {
-        this.niveis_pericia = niveis_pericia;
+        this.nacionalidade = nacionalidade;
     }
-
-    public void setCts(float cts)
+    
+    public void setQualidade(int q)
     {
-        this.cts = cts;
+        this.qualidade = q;
     }
-
-    public void setSva(float sva)
+    
+    public void setQualidadeChuva(int q)
     {
-        this.sva = sva;
+        this.qualidade_chuva = q;
     }
+    
 
-
+    
     //Metodos usuais
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("\nNome: "); sb.append(this.nome);
-        sb.append("\tNíveis Perícia: ");sb.append(this.niveis_pericia);
-        sb.append("\tCritério Chuva vs. Tempo Seco: ");sb.append(this.cts);
-        sb.append("\tSegurança vs. Agressividade: ");sb.append(this.sva);
+        sb.append("\tNacionalidade: ");sb.append(this.nacionalidade);
+        sb.append("\tQualidade: ");sb.append(this.qualidade);
+        sb.append("\tQualidade á chuva: ");sb.append(this.qualidade_chuva);
         return sb.toString();
     }
-
+    
     public Piloto clone()
     {
         return new Piloto(this);
     }
-
+    
     public boolean equals(Object o)
     {
         if(this == o)
-            return true;
-
+        return true;
+        
         if((o == null) || (this.getClass() != o.getClass()))
-            return false;
-
-
+        return false;
+        
         Piloto p = (Piloto) o;
-        return (this.nome.equals(p.getNome()) &&
-                (this.niveis_pericia == p.getNiveisPericia()) &&
-                (this.cts == p.getCts()) &&
-                (this.sva == p.getSva()));
-    }
-
-    @Override
-    public int compareTo(Piloto o) {
-        return this.nome.compareTo(o.getNome());
+        return (this.nome.equals(p.getNome()) && 
+                this.nacionalidade.equals(p.getNacionalidade()) &&
+                this.qualidade==p.getQualidade() &&
+                this.qualidade_chuva==p.getQualidadeChuva());
     }
 }
-

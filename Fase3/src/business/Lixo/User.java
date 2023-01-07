@@ -1,8 +1,8 @@
+package business;
 public class User {
 
     // Variáveis de Instância
     private String username;
-    private Boolean admin;
     private Boolean premium;
     private String password;
 
@@ -10,26 +10,24 @@ public class User {
     // Construtores
     public User(){
         this.username = null;
-        this.admin = false;
         this.premium = false;
         this.password = null;
     }
 
-    public User(String user, Boolean admin, Boolean premium, String pass){
+    public User(String user,Boolean premium, String pass){
         this.username = user;
-        this.admin = admin;
         this.premium = premium;
         this.password = pass;
     }
 
     public User (User u){
         this.username = u.getUsername();
-        this.admin = u.isAdmin();
         this.premium = u.isPremium();
         this.password = u.getPassword();
 
     }
-    
+
+
 
     // Getters e Setters
     public String getUsername(){
@@ -38,15 +36,6 @@ public class User {
 
     public void setUsername(String user){
         this.username = user;
-    }
-    
-
-    public Boolean isAdmin(){
-        return this.admin;
-    }
-
-    public void setAdmin(Boolean a){
-        this.admin = a;
     }
 
     public Boolean isPremium(){
@@ -67,7 +56,8 @@ public class User {
 
 
     // Métodos
-    public User clone(){
+    public User clone() throws CloneNotSupportedException {
+        User clone = (User) super.clone();
         return new User(this);
     }
 
@@ -82,7 +72,6 @@ public class User {
         User u = (User) o;
         return  (this.username.equals(u.getUsername()) &&
                 (this.password.equals(u.getPassword())) &&
-                (this.admin == u.isAdmin()) &&
                 (this.premium == u.isPremium()));
     }
 
@@ -90,7 +79,6 @@ public class User {
         StringBuilder sb = new StringBuilder();
         sb.append("\nUsername: "); sb.append(this.username);
         sb.append("\tPassword: ");sb.append(this.password);
-        sb.append("\tÉ admin: ");sb.append(this.admin.toString());
         sb.append("\tÉ jogador premium: ");sb.append(this.premium.toString());
         return sb.toString();
     }
