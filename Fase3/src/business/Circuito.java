@@ -155,7 +155,7 @@ public class Circuito implements Serializable
         sb.append("\nRetas: ");sb.append(this.nr_retas);
         sb.append("\nVoltas: ");sb.append(this.nr_voltas);
         sb.append("{");
-        for (Map.Entry<String, GDU> entry : this.setGDUcircuito().entrySet()) {
+        for (Map.Entry<String, GDU> entry : this.getDGUcircuito().entrySet()) {
             sb.append(entry.getKey());
             sb.append("=");
             sb.append(entry.getValue());

@@ -3,17 +3,17 @@ package business;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GestCampeonato {
+public class GC {
     private Map<business.User,Float> classifGlobal;
 
-    public GestCampeonato(){
+    public GC(){
         this.classifGlobal = new HashMap<business.User,Float>();
     }
-    public GestCampeonato(Map<business.User,Float> cG){
+    public GC(Map<business.User,Float> cG){
         this.classifGlobal = cG;
     }
 
-    public GestCampeonato(GestCampeonato gC){
+    public GC(GC gC){
         this.classifGlobal = gC.getClassifGlobal();
     }
 
