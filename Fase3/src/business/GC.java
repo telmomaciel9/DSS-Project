@@ -10,8 +10,6 @@ public class GC {
     private Map<User,Float> classifGlobal;
     private Map<String,User> users;
     private Map<Integer,Carro> carros;
-    private Map<String,Piloto> piloto;
-    private Map<String,Campeonato> campeonatos;
 
     public GC(){
         this.classifGlobal = new HashMap<User,Float>();

@@ -6,8 +6,8 @@ package business;
  * @version (a version number or a date)
  */
 
-import business.Carro;
-import business.Circuito;
+//import business.Carro;
+//import business.Circuito;
 
 import java.util.List;
 import java.util.Map;
@@ -195,8 +195,7 @@ public class Corrida implements Serializable
     public void simulacao()
     {
         int voltas = this.circuito.getVoltas();
-        List<Integer> gdus = (List<Integer>) this.circuito.getGDU();
-        List<Carro> dnf = new ArrayList<Carro>();
+        List<Integer> gdus = this.circuito.getGDU();
         for(int i=0;i<voltas;i++){
             for (int j=0;j<this.listaCarros.size()-1;j++){
                 Carro c1 = this.listaCarros.get(j);
@@ -211,9 +210,14 @@ public class Corrida implements Serializable
                 }
                 Boolean dnfC = c1.DNF(i, voltas,this.clima);
                 if (dnfC == true){
-                    dnf.add(c1);
+                    this.dnf.put(c1, i);
                 }
 
+            }
+        }
+        for (Carro c : this.listaCarros){
+            if (c.getDNF() == false){
+                this.resultados.add(c);
             }
         }
     }
@@ -365,7 +369,7 @@ public class Corrida implements Serializable
             sb.append("\t Categoria: "); sb.append(c.getClass().getName()); sb.append(" ");
             sb.append("\t Carro: "); sb.append(c.getMarca()); sb.append(" ");
             sb.append(c.getModelo());
-            sb.append("\t Equipa: ");sb.append(c.getPiloto().getNome());
+            sb.append("\t Piloto: ");sb.append(c.getPiloto().getNome());
             i++;
        }      
        for(int v=this.circuito.getVoltas();v>=0;v--)
@@ -380,7 +384,7 @@ public class Corrida implements Serializable
                    sb.append("\t Categoria: "); sb.append(c.getClass().getName()); sb.append(" ");
                    sb.append("\t Carro: "); sb.append(c.getMarca()); sb.append(" ");
                    sb.append(c.getModelo());
-                   sb.append("\t Equipa: ");sb.append(c.getPiloto().getNome());
+                   sb.append("\t Piloto: ");sb.append(c.getPiloto().getNome());
                    i++;
                 }
            }
@@ -398,7 +402,7 @@ public class Corrida implements Serializable
             sb.append("\t Categoria: "); sb.append(c.getClass().getName()); sb.append(" ");
             sb.append("\t Carro: "); sb.append(c.getMarca()); sb.append(" ");
             sb.append(c.getModelo());
-            sb.append("\t Equipa: ");sb.append(c.getPiloto().getNome());
+            sb.append("\t Piloto: ");sb.append(c.getPiloto().getNome());
             i++;
             }
        }      
@@ -416,7 +420,7 @@ public class Corrida implements Serializable
                    sb.append("\t Categoria: "); sb.append(c.getClass().getName()); sb.append(" ");
                    sb.append("\t Carro: "); sb.append(c.getMarca()); sb.append(" ");
                    sb.append(c.getModelo());
-                   sb.append("\t Equipa: ");sb.append(c.getPiloto().getNome());
+                   sb.append("\t Piloto: ");sb.append(c.getPiloto().getNome());
                    i++;
                 }
                }
