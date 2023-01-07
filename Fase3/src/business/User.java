@@ -83,8 +83,8 @@ public class User {
         return sb.toString();
     }
 
-    public boolean validaCredenciais(String username, String password){
-        return (this.username.equals(username) && this.password.equals(password));
+    public boolean validaCredenciais(String username, String password, boolean tipo){
+        return (this.username.equals(username) && this.password.equals(password) && this.premium.equals(tipo));
     }
 
 
