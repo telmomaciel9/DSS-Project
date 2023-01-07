@@ -154,7 +154,14 @@ public class Circuito implements Serializable
         sb.append("\nChicane: ");sb.append(this.nr_chicane);
         sb.append("\nRetas: ");sb.append(this.nr_retas);
         sb.append("\nVoltas: ");sb.append(this.nr_voltas);
-        // ver o map
+        sb.append("{");
+        for (Map.Entry<String, GDU> entry : this.setGDUcircuito().entrySet()) {
+            sb.append(entry.getKey());
+            sb.append("=");
+            sb.append(entry.getValue());
+            sb.append(", ");
+        }
+        sb.append("}");
         return sb.toString();
     }
 
@@ -166,14 +173,14 @@ public class Circuito implements Serializable
         if(o == null || this.getClass() != o.getClass())
             return false;
 
-        Circuito c = (Circuito) o; // nome km curvas chicane retas voltas
+        Circuito c = (Circuito) o;
         return ( this.nome.equals(c.getNome()) &&
                 this.nr_km == (c.getNr_km()) &&
                 this.nr_curvas == (c.getNr_curvas()) &&
                 this.nr_chicane == (c.getNr_chicane()) &&
                 this.nr_retas == (c.getNr_retas()) &&
-                this.nr_voltas == (c.getNr_voltas()));
-        // ver o map
+                this.nr_voltas == (c.getNr_voltas()) &&
+                this.GDUcircuito.equals(c.getDGUcircuito()));
     }
 
 }
