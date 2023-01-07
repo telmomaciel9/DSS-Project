@@ -12,7 +12,8 @@ public class TextUI {
     // Implementar as cenas para dar
 
     public TextUI(){
-        String[] opcoes = { "Configurar Campeonato",
+        String[] opcoes = { "Fazer Login",
+                            "Configurar Campeonato",
                             "Configurar Corrida",
                             "Simular Corrida"};
         this.menu = new Menu(opcoes);
@@ -24,6 +25,7 @@ public class TextUI {
             menu.executa();
             switch (menu.getOp()){
                 case 1:
+                    login();
                     break;
                 case 2:
                     break;
@@ -35,5 +37,18 @@ public class TextUI {
             }
         } while(menu.getOp() != 0);
         System.out.println("Terminando Aplicação!");
+    }
+
+
+    public void login(){
+        String username;
+        String password;
+        do{
+            menu.login();
+            menu.user();
+            username = in.nextLine();
+            menu.pass();
+            password = in.nextLine();
+        } while(!(modelo.validaLogin(username,password)));
     }
 }

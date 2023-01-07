@@ -33,7 +33,7 @@ public class GC {
 
     }
 
-    public boolean jogadorRegistado(){
-        return false;
+    public boolean jogadorRegistado(String user,String pass){
+        return true;
     }
 }
