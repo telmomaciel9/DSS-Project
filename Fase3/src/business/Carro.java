@@ -1,6 +1,9 @@
 package business;
 
 public class Carro implements Comparable<Carro> {
+    public enum TipoPneu {Macio,Duro,Chuva};
+    public enum ModoMotor{Conservador,Normal,Agressivo};
+
     //Variaveis de instancia
     private float pac;
     private int potencia;
