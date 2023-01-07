@@ -1,6 +1,7 @@
 package data;
 
 import business.Carro;
+import business.Piloto;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -24,8 +25,9 @@ public class CarroDAO implements Map<Integer, Carro> {
                             "ID int NOT NULL PRIMARY KEY"+
                             "Modelo varchar(50) NOT NULL ," +
                             "Marca varchar(50) NOT NULL ," +
-                            "PAC decimal(2,1) DEFAULT NULL," +
-                            "potencia varchar(5) DEFAULT NULL," +
+                            "cilindrada int NOT NULL "+
+                            "fiabilidade int DEFAULT NULL" +
+                            "potencia int DEFAULT NULL," +
                             "tipoPneu varchar(5) DEFAULT NULL," +
                             "modoMotor varchar(5) DEFAULT NULL," +
                             "CONSTAINT CheckTipoPneu CHECK(tipoPneu in ('macio', 'duro', 'chuva')";
@@ -114,13 +116,25 @@ public class CarroDAO implements Map<Integer, Carro> {
         {
             if (rs.next())
             {
-                Carro = new Carro ( rs.getInt("ID"),
-                                    rs.getFloat("PAC"),
-                                    rs.getInt("potencia"),
-                                    rs.getString("Marca"), 
-                                    rs.getString("Modelo"), 
-                                    rs.getString("tipoPneu"),
-                                    rs.getString("modoMotor"));
+                Carro = new Carro(rs.getInt("ID"),
+                        rs.getString("Marca"),
+                        rs.getString("Modelo"),
+                        rs.getInt("cilindrada"),
+                        rs.getInt("potencia"),
+                        0, new Piloto(),
+                        rs.getString("tipoPneu"),
+                        rs.getString("modoMotor")) {
+
+                    @Override
+                    public business.Carro clone() {
+                        return null;
+                    }
+
+                    @Override
+                    public boolean DNF(int volta, int totalvoltas, int clima) {
+                        return false;
+                    }
+                };
             }
         }
         catch (SQLException e)
@@ -141,7 +155,7 @@ public class CarroDAO implements Map<Integer, Carro> {
             stm.executeUpdate(
                             "INSERT INTO Carros "+
                                         "VALUES ('"+ value.getID()+ ", "+
-                                                     value.getPac()+ "', '"+
+                                                     value.getCilindrada()+", "+
                                                      value.getPotencia()+ "', '"+
                                                      value.getMarca()+ "', '"+
                                                      value.getModelo()+ "', '"+

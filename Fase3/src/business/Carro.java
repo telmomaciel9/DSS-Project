@@ -258,8 +258,8 @@ public abstract class Carro implements Comparable<Carro>,Serializable
             fator_sorte -= fator_sorte / 2 + (volta * 5);
         }
 
-        long tempoL = (t_medio + ((this.getCilindrada()/this.getPotencia())-this.piloto.getQualidade())*1000) - fator_sorte 
-                + (clima*(t_chuva - this.piloto.getQualidadeChuva()*1000)) - fator_sorte_chuva;
+        long tempoL = (t_medio + ((this.getCilindrada()/this.getPotencia())-this.piloto.getQualidade())* 1000L) - fator_sorte
+                + (clima*(t_chuva - this.piloto.getQualidadeChuva()* 1000L)) - fator_sorte_chuva;
         System.out.println("Marca: " + this.marca + " | Tempo: " + tempoL);
         return tempoL;
     }
@@ -269,5 +269,5 @@ public abstract class Carro implements Comparable<Carro>,Serializable
      * define se o carro desiste (true desiste, false continua em prova)
      */
     public abstract boolean DNF(int volta,int totalvoltas,int clima);
-    
+
 }

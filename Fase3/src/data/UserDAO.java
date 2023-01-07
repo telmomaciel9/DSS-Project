@@ -20,9 +20,9 @@ public class UserDAO implements Map<String, User> {
             Statement stm = conn.createStatement()){
 
             String sql = "CREATE TABLE IF NOT EXISTS User (" +
-                         "Username varchar(50) NOT NULL PRIMARY KEY, " +
-                         "Password varchar(50) NOT NULL," +
-                         "Premium boolean NOT NULL)";
+                         "username varchar(50) NOT NULL PRIMARY KEY, " +
+                         "password varchar(50) NOT NULL," +
+                         "premium boolean NOT NULL)";
             stm.executeUpdate(sql);
             stm.close();
         }catch (SQLException e){
@@ -76,7 +76,7 @@ public class UserDAO implements Map<String, User> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT Username FROM User WHERE Username='"+key.toString()+"'"))
+                     stm.executeQuery("SELECT username FROM User WHERE username='"+key.toString()+"'"))
         {
             r = rs.next();
         }
@@ -102,12 +102,12 @@ public class UserDAO implements Map<String, User> {
         try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
              Statement stm = conn.createStatement();
              ResultSet rs =
-                     stm.executeQuery("SELECT * FROM User WHERE Username='"+key+"'") )
+                     stm.executeQuery("SELECT * FROM User WHERE username='"+key+"'") )
         {
             if (rs.next())
             {
-                user = new User (rs.getString("Username"), rs.getBoolean("Premium"),rs.getString("Password"));
-                        //booleans admin + premium (???)
+                user = new User (rs.getString("username"), rs.getBoolean("premium"),rs.getString("password"));
+
             }
         }
         catch (SQLException e)
@@ -130,7 +130,7 @@ public class UserDAO implements Map<String, User> {
         User u = this.get(key);
         try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
             Statement stm = conn.createStatement()) {
-            stm.executeUpdate("DELETE  FROM User WHERE Username = '" + key.toString() + "' ");
+            stm.executeUpdate("DELETE  FROM User WHERE username = '" + key.toString() + "' ");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class UserDAO implements Map<String, User> {
         Set<String> r = new HashSet<>();
         try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT Username FROM User")){
+            ResultSet rs = stm.executeQuery("SELECT username FROM User")){
 
             while(rs.next()) {
                 String u = rs.getString("Username");
@@ -177,9 +177,9 @@ public class UserDAO implements Map<String, User> {
         Collection <User> r = new HashSet<>();
         try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT Username FROM User")){
+            ResultSet rs = stm.executeQuery("SELECT username FROM User")){
             while(rs.next()){
-                String user = rs.getString("Username");
+                String user = rs.getString("username");
                 User u = this.get(user);
                 r.add(u);
             }
@@ -190,6 +190,19 @@ public class UserDAO implements Map<String, User> {
         return r;
     }
 
+    public static void povoa(){
+        try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
+            Statement stm = conn.createStatement()){
+            String sql = "INSERT INTO User (username,password,premium)"+
+                         "VALUES ('joao'+'joao'+false)" +
+                         "('gato100'+'100gato'+false)"+
+                         "('meninagira'+'102030'+true)"+
+                         "ON DUPLICATE KEY UPDATE username=VALUES(username)";
+            stm.executeUpdate(sql);
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+    }
     @Override
     public Set<Entry<String, User>> entrySet() {
         throw  new NullPointerException("Não implementado");

@@ -59,13 +59,12 @@ public class PC2 extends Carro
     public boolean equals(Object o)
     {
         if(this==o)
-        return true;
+            return true;
         
         if(o==null || this.getClass()!=o.getClass())
-        return false;
+            return false;
         
         PC2 c = (PC2) o;
-        return ( super.equals(c)
-                && this.preparacao_mecanica == c.getPreparacaoMecaninca());
+            return ( super.equals(c)  && this.preparacao_mecanica == c.getPreparacaoMecaninca());
     }
 }

@@ -19,7 +19,7 @@ import java.io.Serializable;
 
 public class Campeonato implements Serializable
 {
-    private Map<String,Carro> usersCarro;
+    private Map<String,Carro> usersCarro; //username associado a Carro
     private List<Corrida> corridas;
     private Map<String,Integer> classificacao;
     private int prova; //incrementa a cada prova realizada (aponta para a prova a realizar)

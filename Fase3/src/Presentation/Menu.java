@@ -1,9 +1,6 @@
-package ui;
+package Presentation;
 
-import javax.sound.midi.SysexMessage;
-import javax.swing.*;
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,6 +80,10 @@ public class Menu {
 
     public  void pass(){
         System.out.println(" Introduzir Password: ");
+    }
+
+    public  void tipo(){
+        System.out.println(" Jogador Premium(true/false): ");
     }
 
 }

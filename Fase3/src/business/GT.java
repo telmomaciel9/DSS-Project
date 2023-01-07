@@ -19,7 +19,7 @@ public class GT extends Carro
     
     public GT(int id,String marca, String modelo, int cilindrada, int potencia, Piloto p, String tipoPneu, String modoMotor)
     {
-        super(id,marca,modelo,cilindrada,potencia,p,0,tipoPneu,modoMotor);
+        super(id,marca,modelo,cilindrada,potencia,0,p,tipoPneu,modoMotor);
     }
     
     public GT(GT p)
@@ -54,12 +54,12 @@ public class GT extends Carro
     public boolean equals(Object o)
     {
         if(this==o)
-        return true;
+            return true;
         
         if(o==null || this.getClass()!=o.getClass())
-        return false;
+            return false;
         
         GT c = (GT) o;
-        return ( super.equals(c));
+            return ( super.equals(c));
     }
 }

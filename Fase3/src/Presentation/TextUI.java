@@ -1,13 +1,13 @@
-package ui;
+package Presentation;
 
-import business.IGC;
+import business.GC;
 
 import java.util.Scanner;
 
 public class TextUI {
     private Menu menu;
     private Scanner in;
-    private IGC cg;
+    private GC gc;
 
     // Implementar as cenas para dar
 
@@ -18,6 +18,7 @@ public class TextUI {
                             "Simular Corrida"};
         this.menu = new Menu(opcoes);
         this.in   = new Scanner(System.in);
+        this.gc = new GC();
     }
 
     public void run(){
@@ -31,15 +32,16 @@ public class TextUI {
                     break;
                 case 2:
                     if(!flag) break;
-                    System.out.println("2");
+                    //configurarCampeonato();
                     break;
                 case 3:
                     if(!flag) break;
-                    System.out.println("3");
+                    //configurarCorrida();
                     break;
                 case 4:
                     if(!flag) break;
-                    System.out.println("4");
+                    System.out.println("2");
+                    simularCorrida();
                     break;
                 }
         } while(menu.getOp() != 0);
@@ -51,16 +53,23 @@ public class TextUI {
         boolean flag = false;
         String username;
         String password;
+        boolean tipo;
         do{
             menu.login();
             menu.user();
             username = in.nextLine();
             menu.pass();
             password = in.nextLine();
-        } while(!(cg.jogadorRegistado(username,password)));
-        if(cg.jogadorRegistado(username,password)){
+            menu.tipo();
+            tipo = in.nextBoolean();
+        } while(!(gc.jogadorRegistado(username,password,tipo)));
+        if(gc.jogadorRegistado(username,password,tipo)){
             flag = true;
         }
         return flag;
+    }
+
+    public void simularCorrida(){
+        this.gc.simulacaoCorrida();
     }
 }
