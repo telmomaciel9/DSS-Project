@@ -1,6 +1,6 @@
 package data;
 
-import business.Carro;
+import business.User;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -60,6 +60,62 @@ public class UserDAO implements Map<String, User> {
         }
         return i;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return this.size() == 0;
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        boolean r;
+        try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
+             Statement stm = conn.createStatement();
+             ResultSet rs =
+                     stm.executeQuery("SELECT Nome FROM Users WHERE Username='"+key.toString()+"'"))
+        {
+            r = rs.next();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            throw new NullPointerException(e.getMessage());
+        }
+        return r;
+    }
+
+    @Override
+    public boolean containsValue(Object value)
+    {
+        User user = (User) value;
+        User a = this.get(user.getUsername());
+        return user.equals(a);
+    }
+
+    @Override
+    public User get(Object key)
+    {
+        User User = null;
+        try (Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
+             Statement stm = conn.createStatement();
+             ResultSet rs =
+                     stm.executeQuery("SELECT * FROM Users WHERE Username='"+key+"'") )
+        {
+            if (rs.next())
+            {
+                User = new User (rs.getString("Username"),
+                        //booleans admin + premium (???)
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            throw new NullPointerException(e.getMessage());
+        }
+        return User;
+    }
+
+
 
 }
 
