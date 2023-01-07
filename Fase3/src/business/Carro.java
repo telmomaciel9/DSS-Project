@@ -61,7 +61,7 @@ public class Carro implements Comparable<Carro> {
         return this.marca;
     }
 
-    public Integer getModelo() {
+    public String getModelo() {
         return this.modelo;
     }
 

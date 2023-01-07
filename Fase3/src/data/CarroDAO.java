@@ -179,7 +179,7 @@ public class CarroDAO implements Map<Integer, Carro> {
     public void putAll(Map<? extends Integer, ? extends Carro> m)
     {
         for (Carro a : m.values())
-            this.put(a.getModelo(), a);
+            this.put(a.getID(), a);
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.Set;
 public class UserDAO implements Map<String, User> {
     private static UserDAO singleton = null;
 
-    private UserDAO() {
+    public UserDAO() {
         try(Connection conn = DriverManager.getConnection(DataBaseConfig.URL, DataBaseConfig.USERNAME, DataBaseConfig.PASSWORD);
             Statement stm = conn.createStatement()){
 
